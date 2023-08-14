@@ -82,8 +82,11 @@ const Login=({isUserAuthenticated})=>{
     
     // state to manage login or signup 
     const [account,toggleAccount]=useState("login");
+    //to stup values in signup state
     const [signup,setSignup]=useState(signupInitialValues);
+    // to set up values in login state
     const [login,setLogin]=useState(loginInitialValues);
+    // to set error state
     const [error,setError]=useState("");
     
     //using values from context 
@@ -91,16 +94,18 @@ const Login=({isUserAuthenticated})=>{
     //initialize the custom hook
     const navigate =useNavigate();
     
+  
     const toggleSignup=()=>{
-      //  figuring out whether it's login or signup 
+      //  to either show login or signup screen
         account==="signup"?toggleAccount("login"):toggleAccount("signup");
     }
     
     const onInputChange=(e)=>{
-      // inserting new signup values 
+      // inserting new signup values on input change
        setSignup({...signup,[e.target.name]:e.target.value})
     }
-
+    
+    // signup api call on clicking signup button
     const signupUser= async()=>{
       let response=await API.userSignup(signup);
       if(response.isSuccess){
@@ -108,6 +113,7 @@ const Login=({isUserAuthenticated})=>{
          setSignup(signupInitialValues);
          toggleAccount("login");
       }else{
+         
          setError("Something went wrong! Please tr again");
       }
     }
@@ -130,6 +136,7 @@ const Login=({isUserAuthenticated})=>{
         setAccount({username:response.data.username,name:response.data.name})
         
         // user is authenticated
+        //is user authenticated is a state which is resent in App.js to show the <Home/>
         isUserAuthenticated(true);
 
         // navigate to home route if successful login 

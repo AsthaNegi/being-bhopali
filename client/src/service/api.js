@@ -8,11 +8,17 @@ import { API_NOTIFICATION_MESSAGES,SERVICE_URLS } from "../constants/config";
 // backend url 
 const API_URL="http://localhost:8000"
 
+
+// Each instance is a separate client that can carry its own configuration and options like base URLs, timeouts, and headers. Then, we can reuse the configuration for API calls using the same instance.
+
+
 const axiosInstance=axios.create({
     baseURL:API_URL,
     timeout:10000,
     headers:{
-        "content-type":"application/json"
+        "Accept": "application/json,form-data", 
+        "Content-Type":"application/json"
+        // "Content-Type": "'application/x-www-form-urlencoded'"
     }
 })
 
@@ -25,6 +31,8 @@ axiosInstance.interceptors.request.use(
         return Promise.reject(error);
     }
 )
+
+
 
 // interceptor for api response 
 axiosInstance.interceptors.response.use(
@@ -41,9 +49,11 @@ axiosInstance.interceptors.response.use(
 // function in case of success 
 const processResponse=(response)=>{
     if(response?.status===200){
+        //api call was successful 
         return {isSuccess:true,data:response.data}
     }else{
           return{
+        
             isFailure:true,
             status:response?.status,
             msg:response?.msg,
@@ -65,7 +75,8 @@ const processError=(error)=>{
         }
 
     }else if(error.request){
-        //Request made but no response was received
+        //Request was made from frontend but no response was received from backend ie may be the frontend didn't connect with backend
+        //so no request was sent to backend that's why no code response from backend 
         console.log("Error IN REQUEST",error.toJSON());
         return{
            isError:true,
@@ -73,7 +84,8 @@ const processError=(error)=>{
            code:""
         }
     }else{
-        // someting happened in setting up the request that triggers an error
+        // someting happened in setting up the request from frontend  that triggers an error so no request was made
+        // no reuest was sent to backend , therefore backend didn't give any response code 
         console.log("Error IN NETWORK",error.toJSON());
         return{
            isError:true,
@@ -86,7 +98,7 @@ const processError=(error)=>{
 
 
 const API={};
-
+//api request 
 for( const[key,value] of Object.entries(SERVICE_URLS)){
     API[key]=(body,showUploadProgress,showDownloadProgress)=>
         axiosInstance({

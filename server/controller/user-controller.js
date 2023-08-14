@@ -60,6 +60,7 @@ export const loginUser=async(request,response)=>{
         }
 
     }catch(error){
+        // if there is some issue connecting with database
           return response.status(500).json({msg:"Error while login in user"})
     }
 }
