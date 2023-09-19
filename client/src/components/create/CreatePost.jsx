@@ -110,7 +110,7 @@ const CreatePost=()=>{
 
               console.log(response);
               // mongodb will give us url of image which we have to set in post.picture
-              post.picture=response.data;
+              // post.picture=response.data;
 
             }
         }
@@ -130,9 +130,13 @@ const CreatePost=()=>{
     }
 
     const savePost=async()=>{
-      let response=await API.createPost(post);
-      if(response.isSuccess){
-        navigate("/");
+      try{
+        let response=await API.createPost(post);
+        if(response.isSuccess){
+          navigate("/");
+        }
+      }catch(err){
+        console.log(err);
       }
     }
 
@@ -160,7 +164,7 @@ const CreatePost=()=>{
                   
                 />
                 <InputTextField placeholder="Title" onChange={(e)=>handleChange(e)} name="title" />
-                <Button variant="contained" onChange={()=>savePost()}>Publish</Button>
+                <Button variant="contained" onClick={()=>savePost()}>Publish</Button>
             </StyledFormControl>
               
      {/* for writing the blog content  */}
