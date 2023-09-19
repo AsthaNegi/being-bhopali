@@ -18,7 +18,7 @@ export const signupUser=async (request,response)=>{
 
         
         // newUser is validated user by User() model 
-        const newUser=User(user);
+        const newUser=new User(user);
         // newUser is saved in db 
         await newUser.save();
 

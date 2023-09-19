@@ -97,6 +97,13 @@ const Login=({isUserAuthenticated})=>{
   
     const toggleSignup=()=>{
       //  to either show login or signup screen
+        if(login){
+          setLogin(loginInitialValues);
+        }
+        else if(signup){
+           setSignup(signupInitialValues);
+        }
+        setError("");
         account==="signup"?toggleAccount("login"):toggleAccount("signup");
     }
     
@@ -107,14 +114,17 @@ const Login=({isUserAuthenticated})=>{
     
     // signup api call on clicking signup button
     const signupUser= async()=>{
-      let response=await API.userSignup(signup);
-      if(response.isSuccess){
-         setError("");
-         setSignup(signupInitialValues);
-         toggleAccount("login");
-      }else{
-         
-         setError("Something went wrong! Please tr again");
+      try{
+          let response=await API.userSignup(signup);
+          if(response.isSuccess){
+            setError("");
+            setSignup(signupInitialValues);
+            toggleAccount("login");
+          }
+      }
+      catch(err){
+         //catching the error
+         setError("Something went wrong! Please try again");
       }
     }
 
@@ -122,29 +132,34 @@ const Login=({isUserAuthenticated})=>{
        setLogin({...login,[e.target.name]:e.target.value});
     }
 
-    const loginUser=async ()=>{
+    const loginUser=async()=>{
       // calling the login api and passing login state
-      let response=await API.userLogin(login);
-      if(response.isSuccess){
-        setError("");
-        
-        // check in chrome tools , in network-->application-->sessionStorage
-        sessionStorage.setItem("accessToken",`Bearer ${response.data.accessToken}`);
-        sessionStorage.setItem("refreshToken",`Bearer ${response.data.refreshToken}`);
+      try{
+            let response=await API.userLogin(login);
+            if(response.isSuccess){
+              setError("");
+              
+              // check in chrome tools , in network-->application-->sessionStorage
+              sessionStorage.setItem("accessToken",`Bearer ${response.data.accessToken}`);
+              sessionStorage.setItem("refreshToken",`Bearer ${response.data.refreshToken}`);
 
-        // setting the name nd username in global context
-        setAccount({username:response.data.username,name:response.data.name})
-        
-        // user is authenticated
-        //is user authenticated is a state which is resent in App.js to show the <Home/>
-        isUserAuthenticated(true);
+              // setting the name nd username in global context
+              setAccount({username:response.data.username,name:response.data.name})
+              
+              // user is authenticated
+              //is user authenticated is a state which is resent in App.js to show the <Home/>
+              isUserAuthenticated(true);
 
-        // navigate to home route if successful login 
-        navigate("/");
+              // navigate to home route if successful login 
+              navigate("/");
+              }
+       }catch(err){
+         // catching the error
+          setError("something went wrong! Try again");
 
-      }else{
-        setError("something went wrong! Try again");
-      }
+       }
+       
+      
     }
 
   return(
@@ -157,16 +172,16 @@ const Login=({isUserAuthenticated})=>{
                         <TextField variant="standard" value={login.username} onChange={(e)=>onValueChange(e)} name="username" label="Enter username"/>
                         <TextField variant="standard" value={login.password} onChange={(e)=>onValueChange(e)} name="password" label="Enter password"/>
                         
-                        {error&&<Error>{error}</Error>}
+                        {error&&<Error>{error}</Error>} 
                         <LoginButton variant="contained" onClick={()=>loginUser()}>Login</LoginButton>
                         <Text style={{textAlign:"center"}}>OR</Text>
                         <SignupButton onClick={()=>toggleSignup()}>Create an account</SignupButton>
                     </Wrapper>
                   :  
                     <Wrapper>
-                        <TextField variant="standard" onChange={(e)=>onInputChange(e)} name="name" label="Enter Name"/>
-                        <TextField variant="standard" onChange={(e)=>onInputChange(e)} name="username" label="Enter Username"/>
-                        <TextField variant="standard" onChange={(e)=>onInputChange(e)} name="password" label="Enter Password"/>
+                        <TextField variant="standard" value={signup.name} onChange={(e)=>onInputChange(e)} name="name" label="Enter Name"/>
+                        <TextField variant="standard" value={signup.username}  onChange={(e)=>onInputChange(e)} name="username" label="Enter Username"/>
+                        <TextField variant="standard" value={signup.password} onChange={(e)=>onInputChange(e)} name="password" label="Enter Password"/>
                         
                         {error&&<Error>{error}</Error>}
                         <SignupButton onClick={()=>signupUser()}>Signup</SignupButton>

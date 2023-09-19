@@ -16,10 +16,10 @@ const storage=new GridFsStorage({
     options:{useNewUrlParser:true},
     file:(request,file) => {
         // tyles of files that we will accept 
-        const match=["image/png","image/jpg,image/jpeg"];
+        const match=["image/png","image/jpg","image/jpeg"];
         
         // if the file extension did not match 
-        if(match.indexOf(file.memeType)===-1){
+        if (match.indexOf(file.mimetype) === -1){
             return `${Date.now()}-blog-${file.originalname}`;
         }
          

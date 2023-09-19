@@ -4,7 +4,7 @@ import {Box,styled,FormControl,InputBase,Button,TextareaAutosize} from "@mui/mat
 import {AddCircle as Add} from '@mui/icons-material';
 
 // for fetching the params from url 
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate} from "react-router-dom";
 
  // username will be fetched from global context 
  import {DataContext} from "../../context/DataProvider";
@@ -70,6 +70,9 @@ const CreatePost=()=>{
 
     // initializing the useLocation hook for fetching category value from the url
     const location=useLocation();
+
+    //initializing navigate 
+    const navigate=useNavigate();
     
     // when post object has uploaded picture's url then show uploaded picture
     const url=post.picture?post.picture:'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
@@ -126,6 +129,13 @@ const CreatePost=()=>{
         setPost({...post,[e.target.name]:e.target.value});
     }
 
+    const savePost=async()=>{
+      let response=await API.createPost(post);
+      if(response.isSuccess){
+        navigate("/");
+      }
+    }
+
     return(
         <Container>
             <Image src={url} alt="banner"/>
@@ -145,11 +155,12 @@ const CreatePost=()=>{
                     console.log(e.target);
                     setFile(e.target.files[0])
                     
-                    }}
+                    }
+                 }
                   
                 />
                 <InputTextField placeholder="Title" onChange={(e)=>handleChange(e)} name="title" />
-                <Button variant="contained">Publish</Button>
+                <Button variant="contained" onChange={()=>savePost()}>Publish</Button>
             </StyledFormControl>
               
      {/* for writing the blog content  */}

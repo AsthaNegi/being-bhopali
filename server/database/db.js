@@ -10,7 +10,7 @@ const Connection= async(username,password)=>{
          .then((ans)=>{
              console.log("db connected")
           })
-          .catch((err)=>{
+          .catch((error)=>{
              console.log("Error in connection",error)
           });
       
