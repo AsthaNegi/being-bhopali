@@ -20,8 +20,9 @@ export const uploadImage=(request,response)=>{
     // if we did not receive file from the frontend api call 
     // it will return response as file not found 
     // console.log("printing req:",request);
+    console.log(request);
     if (!request.file) {
-        return response.status(404).json({ msg: "File not received" });
+        return response.status(400).json({ msg: "File not received" });
     }
     // if(!request.file){
     //     return response.status(404).json({msg:"file not found"})

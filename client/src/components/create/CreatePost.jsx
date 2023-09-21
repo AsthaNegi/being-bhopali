@@ -82,15 +82,15 @@ const CreatePost=()=>{
 
     useEffect(()=>{
         const getImage=async ()=>{
-            console.log("get image called",file);
+            // console.log("get image called",file);
             if(file){
-              
+              console.log("Uploded file:",file);
               const data=new FormData();
               data.append("name",file.name);
-              console.log(data.name);
+              // console.log(data.name);
               data.append("file",file);
-              console.log(data.file);
-              console.log(data);
+              // console.log(data.file);
+              // console.log(data);
               for (const pair of data.entries()) {
                 console.log(pair[0], pair[1]);
               }
@@ -98,7 +98,7 @@ const CreatePost=()=>{
               let response;
               //calling API for uploading image to database
               try{
-                console.log(data);
+                // console.log(data);
                  response=await API.uploadFile(data);
               }
               catch(error){
@@ -108,7 +108,7 @@ const CreatePost=()=>{
               }
               
 
-              console.log(response);
+              // console.log(response);
               // mongodb will give us url of image which we have to set in post.picture
               // post.picture=response.data;
 

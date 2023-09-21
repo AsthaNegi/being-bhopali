@@ -12,3 +12,25 @@ export const createPost=async (request,response)=>{
     }
 
 }
+
+export const getAllPosts=async(request,response)=>{
+    
+    // taking the category out from the params 
+    let category=request.query.category; 
+    let posts;
+    try{
+        if(category){
+            // serach in db conditionally
+            posts=await Post.find({categories:category});
+        }
+        else{
+            //fetched all the posts from the mongo
+            posts=await Post.find({});
+        }
+        return response.status(200).json(posts);
+
+    }catch(error){
+        console.log("error while fetching posts from mongo");
+        return response.status(500).json({msg:error.message})
+    }
+}

@@ -3,7 +3,7 @@
 import axios from "axios";
 
 import { API_NOTIFICATION_MESSAGES,SERVICE_URLS } from "../constants/config";
-import {getAccessToken} from "../utils/common-utils";
+import {getAccessToken,getType} from "../utils/common-utils";
 
 // backend url 
 const API_URL="http://localhost:8000"
@@ -18,19 +18,20 @@ const axiosInstance=axios.create({
     headers: {
         "Accept": "application/json,multipart/form-data",
         "Content-Type":"application/json"
-        // "Content-Type": "multipart/form-data"
-    }
-    // headers:{
-    //     "Accept": "application/json,form-data", 
-    //     "Content-Type":"application/json"
-    //     // 'Content-Type': 'multipart/form-data'
-    //     // "Content-Type": "'application/x-www-form-urlencoded'"
-    // }
+        // "Content-Type": "'application/x-www-form-urlencoded'"     
+        //content-type :application/json pai hi kaam kar rha hai 
+    }  
 })
 
 // interceptor for api requests
 axiosInstance.interceptors.request.use(
+    // we have interchanged query and params here beacause teacher had explained something wrong 
     function(config){
+        if(config.TYPE.params){
+            config.params=config.TYPE.params;
+        }else if (config.TYPE.query){
+            config.url=config.url+"/"+config.TYPE.query;
+        }
         return config;
     },
     function(error){
@@ -115,6 +116,7 @@ for( const[key,value] of Object.entries(SERVICE_URLS)){
             headers:{
               authorization:getAccessToken()
             },
+            TYPE:getType(value,body),
             onUploadProgress:function(progressEvent){
                 if(showUploadProgress){
                     let percentageCompleted=Math.round((progressEvent.loaded*100)/progressEvent.total)
