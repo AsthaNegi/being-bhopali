@@ -34,3 +34,16 @@ export const getAllPosts=async(request,response)=>{
         return response.status(500).json({msg:error.message})
     }
 }
+
+
+export const getPost=async(request,response)=>{
+    try{
+       const post=await Post.findById(request.params.id);
+       return response.status(200).json(post);
+    }catch(error){
+       console.log("Error in getPost callback function, ");
+       return response.status(500).json({msg:`error in finding post by id in the database:${error.message}`});
+    }
+   
+
+}

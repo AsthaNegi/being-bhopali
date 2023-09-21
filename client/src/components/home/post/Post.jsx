@@ -41,7 +41,7 @@ const Details=styled(Typography)`
 
 const Post=({post})=>{
 
-    const url=post.picture?post.picture:'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
+    const url=post.picture?post.picture:"https://c4.wallpaperflare.com/wallpaper/124/579/788/naruto-akatsuki-hd-wallpaper-wallpaper-preview.jpg";
 
     return(
         
