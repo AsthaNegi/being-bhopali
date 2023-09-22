@@ -3,7 +3,7 @@ import {useEffect,useState,useContext} from "react";
 import {Box,Typography,styled} from "@mui/material";
 import {Edit,Delete} from '@mui/icons-material';
 
-import {useParams} from "react-router-dom";
+import {useParams,Link,useNavigate} from "react-router-dom";
 
 import {API} from "../../service/api";
 import {DataContext} from "../../context/DataProvider";
@@ -55,8 +55,10 @@ const DetailView=()=>{
 
     const {id}=useParams();
     const {account}=useContext(DataContext);
+
+    const navigate=useNavigate();
    
-    const url=post.picture?post.picture:"https://c4.wallpaperflare.com/wallpaper/124/579/788/naruto-akatsuki-hd-wallpaper-wallpaper-preview.jpg";
+    const url=post.picture?post.picture:"https://i.pinimg.com/originals/93/e3/fb/93e3fb501ed86c7d0f2b22f9d2ae6861.jpg";
     
     useEffect(()=>{
       const fetchData=async()=>{
@@ -75,6 +77,39 @@ const DetailView=()=>{
 
     },[]);
 
+    const deleteBlog=async()=>{
+      try{
+
+        console.log(post);
+        let response=await API.deletePost(post._id);
+        console.log(response);
+        if(response.isSuccess){
+          navigate("/");
+        }
+
+      }catch(error){
+         console.log("Error while calling deletePost api",error);
+      }
+    }
+    // const deleteBlog = async () => {
+    //   try {
+    //     console.log(post);
+    //     const response = await API.deletePost(post._id);
+    //     console.log(response);
+    
+    //     // Check the response status code.
+    //     if (response.status !== 200 && response.status !== 204) {
+    //       throw new Error(`Failed to delete post: ${response.status}`);
+    //     }
+    
+    //     // Navigate to the home page.
+    //     navigate("/");
+    //   } catch (error) {
+    //     console.log("Error while calling deletePost api", error);
+    //   }
+    // };
+
+
     return(
         <Container>
              <Image src={url} alt="blog"/>
@@ -83,8 +118,8 @@ const DetailView=()=>{
               {
                 account.username===post.username&&
                 <>
-                    <EditIcon color="primary"/>
-                    <DeleteIcon color="error"/>
+                    <Link to={`/update/${post._id}`}><EditIcon color="primary"/></Link>
+                    <DeleteIcon onClick={()=>deleteBlog()} color="error"/>
                 </>
               }
              </Box>
