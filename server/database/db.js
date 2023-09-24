@@ -11,7 +11,7 @@ const Connection= async(username,password)=>{
              console.log("db connected")
           })
           .catch((error)=>{
-             console.log("Error in connection",error)
+             console.log("Error in db connection",error)
           });
       
 }

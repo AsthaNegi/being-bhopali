@@ -97,10 +97,10 @@ const Login=({isUserAuthenticated})=>{
   
     const toggleSignup=()=>{
       //  to either show login or signup screen
-        if(login){
+        if(account==="login"){
           setLogin(loginInitialValues);
         }
-        else if(signup){
+        else if(account==="signup"){
            setSignup(signupInitialValues);
         }
         setError("");

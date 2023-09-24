@@ -8,10 +8,19 @@ import {useParams,Link,useNavigate} from "react-router-dom";
 import {API} from "../../service/api";
 import {DataContext} from "../../context/DataProvider";
 
-const Container=styled(Box)`
-  margin:50px 100px;
-`;
+//components
+import Comments from "./comments/Comments";
 
+
+// we used theme element to handle responsiveness
+const Container=styled(Box)(({theme})=>({
+  margin:"50px 100px",
+  [theme.breakpoints.down("md")]:{
+    margin:0
+  }
+
+}));
+  
 const Image=styled("img")({
     width:"100%",
     height:"50vh",
@@ -39,6 +48,13 @@ const DeleteIcon=styled(Delete)`
   border:1px solid #878787;
   border-radius:10px;
 `;
+
+const Wrapper=styled(Box)(({theme})=>({
+   [theme.breakpoints.down("md")]:{
+     margin:"40px"
+   }
+   })
+);
 
 const Author=styled(Box)`
   color:#878787;
@@ -91,24 +107,7 @@ const DetailView=()=>{
          console.log("Error while calling deletePost api",error);
       }
     }
-    // const deleteBlog = async () => {
-    //   try {
-    //     console.log(post);
-    //     const response = await API.deletePost(post._id);
-    //     console.log(response);
     
-    //     // Check the response status code.
-    //     if (response.status !== 200 && response.status !== 204) {
-    //       throw new Error(`Failed to delete post: ${response.status}`);
-    //     }
-    
-    //     // Navigate to the home page.
-    //     navigate("/");
-    //   } catch (error) {
-    //     console.log("Error while calling deletePost api", error);
-    //   }
-    // };
-
 
     return(
         <Container>
@@ -124,15 +123,17 @@ const DetailView=()=>{
               }
              </Box>
              <Heading>{post.title}</Heading>
+            <Wrapper>
+                <Author>
+                    <Typography>Author:<Box component="span" style={{fontWeight:600}}>{post.username}</Box></Typography>
+                    <Typography style={{marginLeft:"auto"}}>
+                        {new Date(post.createdDate).toDateString()}
+                    </Typography>
+                </Author>
 
-             <Author>
-                <Typography>Author:<Box component="span" style={{fontWeight:600}}>{post.username}</Box></Typography>
-                <Typography style={{marginLeft:"auto"}}>
-                    {new Date(post.createdDate).toDateString()}
-                </Typography>
-             </Author>
-
-             <Description>{post.description}</Description>
+                <Description>{post.description}</Description>
+                <Comments post={post}/>
+            </Wrapper>
         </Container>
     );
 }

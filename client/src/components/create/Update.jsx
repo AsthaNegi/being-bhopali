@@ -12,9 +12,15 @@ import { useLocation,useNavigate,useParams} from "react-router-dom";
  //importing API 
  import {API} from "../../service/api"
 
-const Container=styled(Box)`
-  margin:50px 100px;
-`;
+// we used theme element to handle responsiveness
+const Container=styled(Box)(({theme})=>({
+  margin:"50px 100px",
+  [theme.breakpoints.down("md")]:{
+    margin:0
+  }
+
+}));
+  
 
 const Image=styled("img")({
     width:"100%",
@@ -33,6 +39,13 @@ const InputTextField=styled(InputBase)`
   margin:0 30px;
   font-size:25px;
 `;
+
+const Wrapper=styled(Box)(({theme})=>({
+  [theme.breakpoints.down("md")]:{
+    margin:"40px"
+  }
+  })
+);
 
 const Textarea=styled(TextareaAutosize)`
   width:100%;
@@ -169,13 +182,15 @@ const Update=()=>{
      {/* for writing the blog content  */}
 
               {/* text area  */}
-              <Textarea 
-                    minRows={5}
-                    placeholder="Tell your story......." 
-                    onChange={(e)=>handleChange(e)} 
-                    name="description" 
-                    value={post.description}  
-               />
+              <Wrapper>
+                  <Textarea 
+                        minRows={5}
+                        placeholder="Tell your story......." 
+                        onChange={(e)=>handleChange(e)} 
+                        name="description" 
+                        value={post.description}  
+                  />
+               </Wrapper>
         </Container>
     );
 }
