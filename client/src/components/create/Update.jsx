@@ -89,7 +89,7 @@ const Update=()=>{
     const {id}=useParams();
     
     // when post object has uploaded picture's url then show uploaded picture
-    const url=post.picture?post.picture:"https://i.pinimg.com/originals/93/e3/fb/93e3fb501ed86c7d0f2b22f9d2ae6861.jpg";
+    const url=post.picture?post.picture:"https://s3.us-west-1.amazonaws.com/goheritagerun.com/wp-content/uploads/2019/10/20105326/Upper-Lake.jpg";
     
      // fetching the post of specific id 
      useEffect(()=>{

@@ -2,7 +2,7 @@ import { Box, styled, Typography, Link } from '@mui/material';
 import { GitHub, Instagram, Email } from '@mui/icons-material';
 
 const Banner = styled(Box)`
-    background-image: url(http://mrtaba.ir/image/bg2.jpg);
+    background-image: url(https://qph.cf2.quoracdn.net/main-qimg-08100b9b0ce3da0d75d671cbe7d19f55-lq);
     width: 100%;
     height: 50vh;
     background-position: left 0px top -100px;

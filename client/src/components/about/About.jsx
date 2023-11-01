@@ -2,7 +2,7 @@ import { Box, styled, Typography, Link } from '@mui/material';
 import { GitHub, Instagram, Email } from '@mui/icons-material';
 
 const Banner = styled(Box)`
-    background-image: url(https://www.wallpapertip.com/wmimgs/23-236943_us-wallpaper-for-website.jpg);
+    background-image: url(https://images.timesproperty.com/properties/photos/5333/mini/NOO_US_SABHA_Common_Area_IMAGE_4.jpg);
     width: 100%;
     height: 50vh;
     background-position: left 0px bottom 0px;
@@ -26,16 +26,15 @@ const About = () => {
         <Box>
             <Banner/>
             <Wrapper>
-                <Typography variant="h3">Code for Interview</Typography>
-                <Text variant="h5">I'm a Software Engineer based in India. 
-                    I've built websites, desktop applications and corporate software.<br />
-                    If you are interested, you can view some of my favorite projects here
+                <Typography variant="h3">Being Bhopali</Typography>
+                <Text variant="h5">There are so many beautiful places in Bhopal. You can visit this amazing city <br />
+                    You can explore alot of places here and enjoy the mazing sunset by the lake in the evening.
                     <Box component="span" style={{ marginLeft: 5 }}>
                         <Link href="https://github.com/kunaltyagi9" color="inherit" target="_blank"><GitHub /></Link>
                     </Box>
                 </Text>
                 <Text variant="h5">
-                    Need something built or simply want to have chat? Reach out to me on
+                    Need to know more? Reach out to me on
                     <Box component="span" style={{ marginLeft: 5 }}>
                         <Link href="https://www.instagram.com/codeforinterview/" color="inherit" target="_blank">
                             <Instagram />

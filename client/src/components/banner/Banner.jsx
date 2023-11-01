@@ -2,7 +2,7 @@
 import {Box,Typography,styled} from "@mui/material";
 
 const Image=styled(Box)`
-  background:url(https://wallpapercave.com/wp/qXrvHA3.jpg
+  background:url(https://www.fabhotels.com/blog/wp-content/uploads/2018/07/1000x650-208.jpg
 ) center/55% repeat-x #000;
  width:100%;
  height:50vh;
@@ -16,6 +16,7 @@ const Image=styled(Box)`
 const Heading=styled(Typography)`
   font-size:70px;
   color:#ffffff;
+  background:black;
   line-height:1;
 `;
 
@@ -27,8 +28,8 @@ const SubHeading=styled(Typography)`
 const Banner=()=>{
     return(
         <Image>
-            <Heading>BLOG</Heading>
-            <SubHeading>Lasaka writes</SubHeading>
+            <Heading>WELCOME TO BHOPAL</Heading>
+            <SubHeading>Being Bhopali</SubHeading>
         </Image>
     );
 }

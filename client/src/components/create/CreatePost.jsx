@@ -88,7 +88,7 @@ const CreatePost=()=>{
     const navigate=useNavigate();
     
     // when post object has uploaded picture's url then show uploaded picture
-    const url=post.picture?post.picture:'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
+    const url=post.picture?post.picture:'https://s3.us-west-1.amazonaws.com/goheritagerun.com/wp-content/uploads/2019/10/20105326/Upper-Lake.jpg';
 
 
     //handling username , date , etc when the "/create" or <CreatePost/> is loaded
